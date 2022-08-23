@@ -13,7 +13,7 @@
 //document.all[10].textContent='hello';
 //console.log(document.forms[0]);
 //console.log(document.links);
-//console.log(document.images);
+console.log(document.images);
 
 //GET ELEMENT BY ID//
 console.log(document.getElementById('header-title'));
