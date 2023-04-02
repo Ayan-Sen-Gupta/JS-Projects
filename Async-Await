@@ -1,0 +1,336 @@
+QUESTION A:
+Write down the code as per the youtuber, both the promises and async-await code.
+
+SOLUTION A:
+//Using Promises
+ex:
+console.log('person1: shows ticket');
+console.log('person2: shows ticket');
+
+const wifeBringingTickets = new Promise((resolve,reject) => {
+    setTimeout(() => {
+    resolve('ticket');
+  },3000)
+ });
+
+const getPopcorn = wifeBringingTickets.then((returnedValue) => {
+   console.log('wife: I brought the tickets');
+   console.log('husband: we should go in');
+   console.log('wife: no I am hungry');
+   return new Promise((resolve,reject) => resolve(`${returnedValue} popcorn`));
+});
+
+const getButter = getPopcorn.then((returnedValue) => {
+  console.log('husband: I got some popcorn');
+  console.log('husband: we should go in');
+  console.log('wife: no I need butter on my popcorn');
+  return new Promise((resolve,reject) => resolve(`${returnedValue} butter`));
+});
+
+getButter.then((returnedValue) => console.log(`Person3: shows ${returnedValue}`));
+
+console.log('person4: shows ticket');
+console.log('person5: shows ticket');
+
+Output:
+person1: shows ticket
+person2: shows ticket
+person4: shows ticket
+person5: shows ticket
+wife: I brought the ticket
+husband: we should go in
+wife: no I am hungry
+husband: I brought some popcorn
+husband: we should go in
+wife: no I need butter on my popcorn
+person3: shows ticket popcorn butter
+
+//Using Async-await
+ex:
+console.log('person1: shows ticket');
+console.log('person2: shows ticket');
+
+const preMovie = async () => {
+  const wifeBringingTickets = new Promise((resolve,reject) => {
+    setTimeout(() => {
+    resolve('ticket');
+  },3000);
+});
+
+  const getPopcorn = new Promise((resolve,reject) => resolve('popcorn'));
+
+  const getButter = new Promise((resolve,reject) => resolve('butter'));
+
+let ticket = await wifeBringingTickets;
+
+console.log(`wife: I brought the ${ticket}`);
+console.log('husband: we should go in');
+console.log('wife: no I am hungry');
+
+let popcorn = await getPopcorn;
+
+  console.log(`husband: I brought some ${popcorn}`);
+  console.log('husband: we should go in');
+  console.log('wife: no I need butter on my popcorn');
+
+let butter = await getButter;
+ 
+  console.log(`husband: I brought some ${butter}`);
+  console.log('wife: lets go in');
+
+ return ticket;
+}
+
+preMovie().then((returnedValue) => console.log((`person 3: shows ${returnedValue}`); 
+
+console.log('person4: shows ticket');
+console.log('person5: shows ticket');
+
+Output:
+person1: shows ticket
+person2: shows ticket
+person4: shows ticket
+person5: shows ticket
+wife: I brought the ticket
+husband: we should go in
+wife: no I am hungry
+husband: I brought some popcorn
+husband: we should go in
+wife: no I need butter on my popcorn
+husband: I brought some butter
+wife: lets go in
+person3: shows ticket
+
+
+QUESTION B:
+Now create a new promise called getColdDrinks which comes after husband gets butter. Integrate the code in both promises and async-await code.
+
+SOLUTION B:
+//Using Promises
+ console.log('person1: shows ticket');
+ console.log('person2: shows ticket');
+ 
+ const wifeBringingTickets = new Promise((resolve,reject) => {
+     setTimeout(() => {
+     resolve('ticket');
+   },3000)
+  });
+ 
+ const getPopcorn = wifeBringingTickets.then((returnedValue) => {
+    console.log('wife: I brought the tickets');
+    console.log('husband: we should go in');
+    console.log('wife: no I am hungry');
+    return new Promise((resolve,reject) => resolve(`${returnedValue} popcorn`));
+ });
+ 
+ const getButter = getPopcorn.then((returnedValue) => {
+   console.log('husband: I got some popcorn');
+   console.log('husband: we should go in');
+   console.log('wife: no I need butter on my popcorn');
+   return new Promise((resolve,reject) => resolve(`${returnedValue} butter`));
+ });
+
+ const getColdDrinks = getButter.then((returnedValue) =>{
+  console.log('husband: I got some popcorn');
+  console.log('husband: we should go in');
+  console.log('wife: no I need cold drink');
+  return new Promise((resolve,reject) => resolve(`${returnedValue} cold drinks`));
+ });
+ 
+  getColdDrinks.then((returnedValue) => {
+         console.log('husband: I got cold drink');
+         console.log('wife: lets go in');
+         console.log(`Person3: shows ${returnedValue}`)
+  });
+ 
+ console.log('person4: shows ticket');
+ console.log('person5: shows ticket');
+
+Output:
+person1: shows ticket
+person2: shows ticket
+person4: shows ticket
+person5: shows ticket
+wife: I brought the tickets
+husband: we should go in
+wife: no I am hungry
+husband: I got some popcorn
+husband: we should go in
+wife: no I need butter on my popcorn
+husband: I got some popcorn
+husband: we should go in
+wife: no I need cold drink
+husband: I got cold drink
+wife: lets go in
+Person3: shows ticket popcorn butter cold drinks
+
+//Using Async-await
+ console.log('person1: shows ticket');
+ console.log('person2: shows ticket');
+ 
+ const preMovie = async () => {
+   const wifeBringingTickets = new Promise((resolve,reject) => {
+     setTimeout(() => {
+     resolve('ticket');
+   },3000);
+ });
+ 
+   const getPopcorn = new Promise((resolve,reject) => resolve('popcorn'));
+ 
+   const getButter = new Promise((resolve,reject) => resolve('butter'));
+
+   const getColdDrink = new Promise((resolve,reject) => resolve('cold drink'))
+ 
+ let ticket = await wifeBringingTickets;
+ 
+ console.log(`wife: I brought the ${ticket}`);
+ console.log('husband: we should go in');
+ console.log('wife: no I am hungry');
+ 
+ let popcorn = await getPopcorn;
+ 
+   console.log(`husband: I brought some ${popcorn}`);
+   console.log('husband: we should go in');
+   console.log('wife: no I need butter on my popcorn');
+ 
+ let butter = await getButter;
+  
+   console.log(`husband: I brought some ${butter}`);
+   console.log('wife: I need cold drink');
+
+ let coldDrink = await getColdDrink;
+  
+   console.log(`husband: I brought some ${coldDrink}`);
+   console.log('wife: lets go in');
+
+    return ticket;
+ }
+ 
+ preMovie().then((returnedValue) => console.log(`person 3: shows ${returnedValue}`)); 
+ 
+ console.log('person4: shows ticket');
+ console.log('person5: shows ticket');
+
+Output:
+person1: shows ticket
+person2: shows ticket
+person4: shows ticket
+person5: shows ticket
+wife: I brought the ticket
+husband: we should go in
+wife: no I am hungry
+husband: I brought some popcorn
+husband: we should go in
+wife: no I need butter on my popcorn
+husband: I brought some butter
+wife: I need cold drink
+husband: I brought some cold drink
+wife: lets go in
+person 3: shows ticket
+
+
+Question C:
+Understand how to handle Promise.all with async await.
+Convert the createPost , deletePost you wrote previously into async await completely.
+
+ANSWER C:
+//createPost
+const myPost = [
+  {title: 'Post One', body: 'This is post one', createdAt: new Date().getTime()},
+  {title: 'Post Two', body: 'This is post two', createdAt: new Date().getTime()}
+];
+
+let timerId;
+
+function getPosts(){
+    clearInterval(timerId); //CLearing the previous instance of setInterval().
+    timerId = setInterval(() => { //It will display the output at regular intervals.
+    //let timerId=setInterval(() => { 
+      let output = '';
+      myPost.forEach((element) => {
+        output+=`<li>${element.title} - updated ${(new Date().getTime() - element.createdAt)/1000} seconds ago</li>`; //new Date().getTime() will give the current time in milliseconds
+      });
+      //console.log(timerId); //For checking how many setInterval function is running
+      document.body.innerHTML = output;
+     },1000);
+}
+
+  async function createPost(post){
+    try{
+     const postsCreated = await new Promise((resolve, reject) => {
+  setTimeout(() => {
+    myPost.push({...post, createdAt: new Date().getTime()});
+    
+   const error = false;
+   
+   if(!error) {
+      resolve(myPost);
+   } else{
+       reject('Error: Something went wrong');
+   }  
+  },1000);
+ });
+  console.log(postsCreated);
+ } catch(err){
+     console.log(err);
+ }
+}
+
+createPost({title: 'Post Three', body: 'This is post three'});
+
+Output:
+0: {title: 'Post One', body: 'This is post one', createdAt: 1673351798356}
+1: {title: 'Post Two', body: 'This is post two', createdAt: 1673351798356}
+2: {title: 'Post Three', body: 'This is post three', createdAt: 1673351799369}
+length: 3
+[[Prototype]]: Array(0)
+
+
+//deletePost
+const myPost = [
+  {title: 'Post One', body: 'This is post one', createdAt: new Date().getTime()},
+  {title: 'Post Two', body: 'This is post two', createdAt: new Date().getTime()}
+];
+
+let timerId;
+
+function getPosts(){
+    clearInterval(timerId); //CLearing the previous instance of setInterval().
+    timerId = setInterval(() => { //It will display the output at regular intervals.
+    //let timerId=setInterval(() => { 
+      let output = '';
+      myPost.forEach((element) => {
+        output+=`<li>${element.title} - updated ${(new Date().getTime() - element.createdAt)/1000} seconds ago</li>`; //new Date().getTime() will give the current time in milliseconds
+      });
+      //console.log(timerId); //For checking how many setInterval function is running
+      document.body.innerHTML = output;
+     },1000);
+}
+
+async function deletePost(){
+try{
+   const postsDeleted = await new Promise((resolve,reject) => {
+   setTimeout(() => {
+       
+       if(myPost.length>0) {
+        myPost.pop();
+         resolve(myPost);          
+       }
+       else{
+         reject('Error: Array is empty now');
+       }
+   },1000);
+  });
+  console.log(postsDeleted)
+ } catch(err){
+     console.log(err);
+ }
+}
+
+deletePost();
+
+Output:
+0: {title: 'Post One', body: 'This is post one', createdAt: 1673351869912}
+length: 1
+[[Prototype]]: Array(0)
+
